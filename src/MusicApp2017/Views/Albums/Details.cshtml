@@ -1,0 +1,82 @@
+@model MusicApp2017.Models.Album
+
+@{
+    ViewData["Title"] = "Details";
+    //var ratingSum = ViewBag.RatingSum;
+    //var ratingCount = ViewBag.RatingCount;
+    //var averageRating = 0;
+    //if (ratingCount != 0)
+    //{
+    //    averageRating = ratingSum / ratingCount;
+    //}
+
+    var ratingCount = (Int32)ViewData["ratingCount"];
+    var ratingSum = (Int32)ViewData["ratingSum"];    
+    var averageRating = ((double)ratingSum /ratingCount).ToString("F");
+}
+
+<h3>Album Details</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Model.Title
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Artist)
+        </dt>
+        <dd>
+            @Model.Artist.Name
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dd>
+            @Model.Genre.Name
+        </dd>
+    </dl>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Number of Ratings</th>
+                <th>Average Rating</th>
+                <th>Your Rating</th>
+                <th></th>
+            </tr>
+        </thead>
+            <tr>
+                <td>@ratingCount</td>
+                <td>@averageRating</td>
+                @using (Html.BeginForm("RateAlbum", "Albums", FormMethod.Get))
+                {
+                    <td>
+                        <select id="Stars" name="Stars" class="form-control input-sm">
+                            <option value="1">1 star</option>
+                            <option value="2">2 stars</option>
+                            <option value="3">3 stars</option>
+                            <option value="4">4 stars</option>
+                            <option value="5">5 stars</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="hidden" id="id" name="id" value="@Model.AlbumID" />
+                        <input type="submit" class="btn btn-success" value="RateAlbum" />
+                    </td>
+
+                }
+                
+            </tr>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.AlbumID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

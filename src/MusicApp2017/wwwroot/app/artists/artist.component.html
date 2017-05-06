@@ -1,0 +1,8 @@
+﻿<h1>Artist Details</h1>
+
+<p *ngIf="!artist"><em>Loading artist...</em></p>
+
+<div *ngIf="artist">
+    <div>Artist Name: {{artist.name}}</div>
+    <div>Artist Bio: {{artist.bio}}</div>
+</div>

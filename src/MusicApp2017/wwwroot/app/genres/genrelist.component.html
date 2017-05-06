@@ -1,0 +1,19 @@
+﻿<h1>Genre Details</h1>
+
+<p *ngIf="!genres"><em>Loading genres...</em></p>
+
+<table class='table table-condensed' *ngIf="genres">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let genre of genres">
+            <td [routerLinkActive]="['link-active']">
+                <a [routerLink]="['/genres', genre.genreID]">{{ genre.name }} </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<addgenre></addgenre>

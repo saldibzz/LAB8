@@ -1,0 +1,21 @@
+﻿<h1>Artist Details</h1>
+
+<p *ngIf="!artists"><em>Loading artists...</em></p>
+
+<table class='table table-condensed' *ngIf="artists">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Bio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let artist of artists">
+            <td [routerLinkActive]="['link-active']">
+                <a [routerLink]="['/artists', artist.artistID]">{{ artist.name }} </a>
+            </td>
+            <td>{{ artist.bio }}</td>
+        </tr>
+    </tbody>
+</table>
+<addartist></addartist>

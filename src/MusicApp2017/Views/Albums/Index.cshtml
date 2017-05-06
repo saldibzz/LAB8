@@ -1,0 +1,93 @@
+@model IEnumerable<MusicApp2017.Models.Album>
+using MusicApp2017.Models.AccountViewModels;
+using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Identity
+@using MusicApp2017.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Index";
+    //IEnumerable<MusicApp2017.Models.Album> albums = ViewData["albums"] as IEnumerable<MusicApp2017.Models.Album>;
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    var currentUser = await UserManager.GetUserAsync(User);
+    <h4>Albums in your favorite Genre: <strong>@currentUser.FavoriteGenre</strong></h4>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>
+                    Album ID
+                </th>
+                <th>Album Title</th>
+                <th>Artist Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @*@foreach (MusicApp2017.Models.Album album in albums)
+                {
+                    <tr>
+                        <td>@album.AlbumID</td>
+                        <td>@album.Title</td>
+                        <td>@album.Artist.Name</td>
+                        <td>@album.Genre.Name</td>
+                    </tr>
+                }*@
+        </tbody>
+    </table>
+
+
+    <a asp-action="Index" asp-controller="Albums" class="btn btn-lg btn-info">View all albums</a>
+
+
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Artist)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Artist.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AlbumID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.AlbumID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AlbumID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
